@@ -3,6 +3,7 @@ import logging
 import os
 from concurrent.futures import ThreadPoolExecutor
 from contextlib import asynccontextmanager
+from typing import List
 
 from fastapi import FastAPI, HTTPException
 from fastapi_simple_redis_cache.NaiveCache import NaiveCache
@@ -29,6 +30,7 @@ REDIS_HOST_PORT = int(os.environ.get("REDIS_PORT", LOCAL_REDIS_PORT))
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    """Placeholder for startup/shutdown logic."""
     logging.info("Starting up Project API")
     yield
     logging.info("Shutting down Project API")
@@ -45,28 +47,31 @@ sub_application_sentiment_predict.add_middleware(
 )
 
 ML_THREAD_POOL = ThreadPoolExecutor(
-    max_workers=4,  # Tune based on your CPU cores
+    max_workers=4,
     thread_name_prefix="ml-inference",
 )
 
-
 class SentimentRequest(BaseModel):
-    pass
+    text: List[str]  
 
 
 class Sentiment(BaseModel):
-    pass
+    label: str
+    score: float
 
 
 class SentimentResponse(BaseModel):
-    # ... [Sentiment]
-    pass
+    predictions: List[List[Sentiment]]
 
 
 @sub_application_sentiment_predict.post(
     "/bulk-predict", response_model=SentimentResponse
 )
 async def predict(sentiments: SentimentRequest):
+    """
+    Predict sentiment for multiple texts.
+    Returns POSITIVE and NEGATIVE labels with scores for each input.
+    """
     try:
         result = await asyncio.wait_for(
             asyncio.get_running_loop().run_in_executor(
@@ -75,7 +80,7 @@ async def predict(sentiments: SentimentRequest):
             ),
             timeout=10.0,
         )
-        return {"prediction": result}
+        return {"predictions": result}
     except asyncio.TimeoutError:
         raise HTTPException(status_code=504, detail="Prediction timeout")
 

@@ -3,7 +3,7 @@ name = "src"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Mitchell Karchemsky",email = "mitch.karchemsky@gmail.com"}
+    {name = "Helin Yilmaz",email = "helinyilmaz@berkeley.edu"}
 ]
 package-mode = false
 requires-python = ">=3.13,<3.14"
