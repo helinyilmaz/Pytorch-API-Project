@@ -11,9 +11,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN curl -sSL https://install.python-poetry.org | python3 -
 ENV PATH="/root/.local/bin:$PATH"
 
-# Copy dependency files from mlapi subdirectory
+# Copy dependency files
 COPY mlapi/pyproject.toml ./
-COPY mlapi/poetry.lock ./
 
 # Create venv
 RUN python -m venv ./venv
@@ -22,9 +21,8 @@ ENV PATH="/app/venv/bin:$PATH"
 # Disable Poetry's own venv creation
 RUN poetry config virtualenvs.create false
 
-# Install dependencies
-RUN /bin/bash -c "source ./venv/bin/activate && poetry install --only main --no-root --no-interaction"
-
+# Generate lock file and install dependencies
+RUN /bin/bash -c "source ./venv/bin/activate && poetry lock && poetry install --only main --no-root --no-interaction"
 # Copy source code and model from mlapi subdirectory
 COPY mlapi/src ./src
 COPY distilbert-base-uncased-finetuned-sst2 ./distilbert-base-uncased-finetuned-sst2
