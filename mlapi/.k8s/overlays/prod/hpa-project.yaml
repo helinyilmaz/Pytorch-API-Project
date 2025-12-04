@@ -10,14 +10,14 @@ spec:
     kind: Deployment
     name: project-api-deployment
   minReplicas: 4
-  maxReplicas: 10
+  maxReplicas: 20
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 50
+        averageUtilization: 30
   behavior:
     scaleUp:
       stabilizationWindowSeconds: 0

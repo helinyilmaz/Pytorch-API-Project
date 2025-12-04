@@ -7,7 +7,7 @@ metadata:
   labels:
     app: project-api-deployment
 spec:
-  replicas: 2
+  replicas: 4
   selector:
     matchLabels:
       app: project-api
@@ -26,10 +26,10 @@ spec:
               value: "6379"
           resources:
             requests:
-              cpu: 500m
+              cpu: 1500m
               memory: 1500Mi
             limits:
-              cpu: 1000m
+              cpu: 2000m
               memory: 2000Mi
           imagePullPolicy: IfNotPresent
           ports:
