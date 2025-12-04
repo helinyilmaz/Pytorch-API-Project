@@ -18,7 +18,9 @@ spec:
     spec:
       containers:
         - name: project-api-container
-          image: project:b2faeda
+          # image: project:b2faeda
+          # image: project:fad9a66
+          image: project:25868db
           env:
             - name: REDIS_URL
               value: redis://redis-service

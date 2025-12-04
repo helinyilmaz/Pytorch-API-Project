@@ -3,3 +3,5 @@ distilbert-base-uncased-finetuned-sst2/
 .env
 __pycache__/
 .DS_Store
+distilbert-base-uncased-finetuned-sst2/
+distilbert-base-uncased-finetuned-sst2/

@@ -16,4 +16,4 @@ images:
 
   - name: project
     newName: 650251712107.dkr.ecr.us-west-2.amazonaws.com/helinyilmaz/project
-    newTag: b2faeda
+    newTag: 25868db
