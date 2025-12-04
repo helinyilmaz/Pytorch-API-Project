@@ -1,0 +1,19 @@
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: helinyilmaz
+
+resources:
+  - ../../base
+  - virtual-service.yaml
+  - hpa-api.yaml
+  - hpa-project.yaml
+
+images:
+  - name: lab
+    newName: 650251712107.dkr.ecr.us-west-2.amazonaws.com/helinyilmaz/lab
+    newTag: 177c396
+
+  - name: project
+    newName: 650251712107.dkr.ecr.us-west-2.amazonaws.com/helinyilmaz/project
+    newTag: b2faeda
