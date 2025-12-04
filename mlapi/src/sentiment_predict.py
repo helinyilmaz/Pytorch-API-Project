@@ -42,7 +42,7 @@ sub_application_sentiment_predict.add_middleware(
     redis_host=REDIS_HOST_URL,
     redis_port=REDIS_HOST_PORT,
     redis_db=0,
-    redis_prefix="w255-cache-prediction",
+    redis_prefix="fastapi-cache-project",
     excluded_paths=["/project/health"],
 )
 
